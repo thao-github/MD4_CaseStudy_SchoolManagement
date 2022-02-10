@@ -64,17 +64,17 @@ public class AuthController {
                     );
                     roles.add(adminRole);
                     break;
-                case "pm":
-                    Role pmRole = roleService.findByName(RoleName.PM).orElseThrow(
+                case "coach":
+                    Role coachRole = roleService.findByName(RoleName.COACH).orElseThrow(
                             () -> new RuntimeException("Role not found!")
                     );
-                    roles.add(pmRole);
+                    roles.add(coachRole);
                     break;
                 default:
-                    Role userRole = roleService.findByName(RoleName.USER).orElseThrow(
+                    Role studentRole = roleService.findByName(RoleName.STUDENT).orElseThrow(
                             () -> new RuntimeException("Role not found!")
                     );
-                    roles.add(userRole);
+                    roles.add(studentRole);
             }
         }));
         user.setRoles(roles);

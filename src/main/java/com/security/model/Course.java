@@ -1,4 +1,4 @@
-package object.model;
+package com.security.model;
 
 import lombok.Data;
 
@@ -9,9 +9,11 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class Class {
+public class Course {
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
 }

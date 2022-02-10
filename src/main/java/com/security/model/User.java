@@ -46,29 +46,40 @@ public class User {
     @Lob
     private String avatar;
 
+    @Lob
+    private String phone;
+
+    @Lob
+    private String address;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="user_role",
     joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
 
+    @ManyToOne
+    private Classes classes;
+
     public User() {
     }
 
-    public User(Long id, String name, String username, String email, String password, String avatar, Set<Role> roles) {
+    public User(Long id, String name, String username, String email, String password, String avatar, String phone, String address, Set<Role> roles) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.avatar = avatar;
+        this.phone = phone;
+        this.address = address;
         this.roles = roles;
     }
 
-    public User( @NotBlank @Size(min = 3, max = 50) String  name,
-                 @NotBlank @Size(min = 3, max = 50) String username,
-                 @NotBlank @Size(max=50) @Email String email,
-                 String avatar,
-                 @NotBlank @Size(min=6, max=100)String encode) {
+    public User(@NotBlank @Size(min = 3, max = 50) String  name,
+                @NotBlank @Size(min = 3, max = 50) String username,
+                @NotBlank @Size(max=50) @Email String email,
+                String avatar,
+                @NotBlank @Size(min=6, max=100)String encode) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -122,6 +133,22 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Set<Role> getRoles() {
