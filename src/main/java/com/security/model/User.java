@@ -52,6 +52,8 @@ public class User {
     @Lob
     private String address;
 
+    private String status;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="user_role",
     joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -61,18 +63,6 @@ public class User {
     private Classes classes;
 
     public User() {
-    }
-
-    public User(Long id, String name, String username, String email, String password, String avatar, String phone, String address, Set<Role> roles) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.avatar = avatar;
-        this.phone = phone;
-        this.address = address;
-        this.roles = roles;
     }
 
     public User(@NotBlank @Size(min = 3, max = 50) String  name,
@@ -85,6 +75,20 @@ public class User {
         this.email = email;
         this.avatar = avatar;
         this.password = encode;
+    }
+
+    public User(Long id, String name, String username, String email, String password, String avatar, String phone, String address, String status, Set<Role> roles, Classes classes) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.avatar = avatar;
+        this.phone = phone;
+        this.address = address;
+        this.status = status;
+        this.roles = roles;
+        this.classes = classes;
     }
 
     public Long getId() {
@@ -151,11 +155,27 @@ public class User {
         this.address = address;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Classes getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Classes classes) {
+        this.classes = classes;
     }
 }

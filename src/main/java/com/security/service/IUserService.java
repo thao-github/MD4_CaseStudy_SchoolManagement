@@ -2,6 +2,7 @@ package com.security.service;
 
 import com.security.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IUserService {
@@ -16,4 +17,12 @@ public interface IUserService {
     void deleteById(Long id);
 
     Optional<User> findById(Long id);
+
+    List<User> findAllStudentByCoach(Long id);
+
+    List<User> findAllStudentByName(Long id, String name);
+
+    User findUserById(Long classId, Long studentId);
+
+    List<User> findUserByStatus(Long id, String status);
 }

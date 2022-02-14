@@ -6,6 +6,7 @@ import com.security.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +43,25 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Optional<User> findById(Long id) {
         return userRepo.findById(id);
+    }
+
+    @Override
+    public List<User> findAllStudentByCoach(Long id) {
+        return userRepo.findAllStudentByCoach(id);
+    }
+
+    @Override
+    public List<User> findAllStudentByName(Long id, String name) {
+        return userRepo.findAllStudentByName(id, name);
+    }
+
+    @Override
+    public User findUserById(Long classId, Long studentId) {
+        return userRepo.findUserById(classId, studentId);
+    }
+
+    @Override
+    public List<User> findUserByStatus(Long id, String status) {
+        return userRepo.findUserByStatus(id, status);
     }
 }

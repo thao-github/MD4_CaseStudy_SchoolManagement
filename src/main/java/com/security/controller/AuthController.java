@@ -45,13 +45,13 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signupForm) {
         if (userService.existsByUsername(signupForm.getUsername())) {
-            return new ResponseEntity<>(new ResponseMessage("no_user"), HttpStatus.OK);
+            return new ResponseEntity<>(new ResponseMessage("Username existed!"), HttpStatus.OK);
         }
         if (userService.existsByEmail(signupForm.getEmail())) {
-            return new ResponseEntity<>(new ResponseMessage("no_email"), HttpStatus.OK);
+            return new ResponseEntity<>(new ResponseMessage("Email existed!"), HttpStatus.OK);
         }
         if (signupForm.getAvatar() ==null || signupForm.getAvatar().trim().isEmpty()){
-            signupForm.setAvatar("https://firebasestorage.googleapis.com/v0/b/hatsales2.appspot.com/o/user.png?alt=media&token=760eb9f2-72e2-41d0-88d6-d2808a7b5362");
+            signupForm.setAvatar("https://firebasestorage.googleapis.com/v0/b/casestudymd4-school.appspot.com/o/students.png?alt=media&token=83207a05-5989-4653-b845-88d702aa10c5");
         }
         User user = new User(signupForm.getName(), signupForm.getUsername(), signupForm.getEmail(), signupForm.getAvatar(),passwordEncoder.encode(signupForm.getPassword()));
         Set<String> strRole = signupForm.getRoles();
