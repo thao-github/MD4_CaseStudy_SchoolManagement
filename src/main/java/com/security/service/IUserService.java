@@ -1,7 +1,10 @@
 package com.security.service;
 
 import com.security.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IUserService {
@@ -16,4 +19,10 @@ public interface IUserService {
     void deleteById(Long id);
 
     Optional<User> findById(Long id);
+
+    List<User> findAllCoach(int pageable);
+
+    int countAllCoach();
+
+    List<User> searchCoach(String name, int start);
 }

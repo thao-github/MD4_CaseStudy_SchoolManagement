@@ -32,9 +32,8 @@ public class User {
     @Size(min = 3, max = 50)
     private String username;
 
-    @NaturalId
-    @NotBlank
-    @Size(max=50)
+    @NaturalId(mutable = true)
+    @Size(max = 50)
     @Email
     private String email;
 
@@ -77,7 +76,7 @@ public class User {
 
     public User(@NotBlank @Size(min = 3, max = 50) String  name,
                 @NotBlank @Size(min = 3, max = 50) String username,
-                @NotBlank @Size(max=50) @Email String email,
+                 @Size(max = 50) @Email String email,
                 String avatar,
                 @NotBlank @Size(min=6, max=100)String encode) {
         this.name = name;
@@ -157,5 +156,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Classes getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Classes classes) {
+        this.classes = classes;
     }
 }

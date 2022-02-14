@@ -4,8 +4,11 @@ import com.security.model.User;
 import com.security.repository.IUserRepo;
 import com.security.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +45,20 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Optional<User> findById(Long id) {
         return userRepo.findById(id);
+    }
+
+    @Override
+    public List<User> findAllCoach(int pageable) {
+        return userRepo.findAllCoach(pageable);
+    }
+
+    @Override
+    public int countAllCoach() {
+        return userRepo.countCoaches();
+    }
+
+    @Override
+    public List<User> searchCoach(String name, int start) {
+        return userRepo.searchCoach(name, start);
     }
 }
