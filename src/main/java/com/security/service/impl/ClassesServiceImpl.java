@@ -16,7 +16,7 @@ public class ClassesServiceImpl implements IClassesService {
 
     @Override
     public List<Classes> findAll() {
-        return (List<Classes>) classesRepo.findAll();
+        return classesRepo.findAll();
     }
 
     @Override

@@ -25,4 +25,10 @@ public interface IUserService {
     User findUserById(Long classId, Long studentId);
 
     List<User> findUserByStatus(Long id, String status);
+
+    List<User> findAllCoach(int pageable);
+
+    int countAllCoach();
+
+    List<User> searchCoach(String name, int start);
 }

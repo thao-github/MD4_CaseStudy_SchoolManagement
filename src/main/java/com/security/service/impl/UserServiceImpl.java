@@ -64,4 +64,19 @@ public class UserServiceImpl implements IUserService {
     public List<User> findUserByStatus(Long id, String status) {
         return userRepo.findUserByStatus(id, status);
     }
+
+    @Override
+    public List<User> findAllCoach(int pageable) {
+        return userRepo.findAllCoach(pageable);
+    }
+
+    @Override
+    public int countAllCoach() {
+        return userRepo.countCoaches();
+    }
+
+    @Override
+    public List<User> searchCoach(String name, int start) {
+        return userRepo.searchCoach(name, start);
+    }
 }

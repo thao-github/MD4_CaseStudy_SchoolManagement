@@ -2,11 +2,13 @@ package com.security.controller;
 
 import com.security.dto.response.ResponseMessage;
 import com.security.model.Classes;
+import com.security.model.Mark;
 import com.security.model.Tuition;
 import com.security.model.User;
-import com.security.service.impl.ClassesServiceImpl;
-import com.security.service.impl.TuitionServiceImpl;
-import com.security.service.impl.UserServiceImpl;
+import com.security.service.IClassesService;
+import com.security.service.IMarkService;
+import com.security.service.ITuitionService;
+import com.security.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +22,37 @@ import java.util.Optional;
 @CrossOrigin("*")
 public class UserController {
     @Autowired
-    UserServiceImpl userService;
+    IUserService userService;
 
     @Autowired
-    ClassesServiceImpl classesService;
+    IClassesService classesService;
 
     @Autowired
-    TuitionServiceImpl tuitionService;
+    ITuitionService tuitionService;
+
+    @Autowired
+    IMarkService markService;
+
+    @GetMapping("/{id}")
+    public Optional<User> findById(@PathVariable Long id) {
+        return userService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> edit(@PathVariable Long id, @RequestBody User users) {
+        Optional<User> oldUser = userService.findById(id);
+        if (users.getPassword() == null || users.getAvatar() == null) {
+            users.setPassword(oldUser.get().getPassword());
+        }
+        if(users.getAvatar() == null) {
+            users.setAvatar(oldUser.get().getAvatar());
+        }
+        users.setRoles(oldUser.get().getRoles());
+        users.setClasses(oldUser.get().getClasses());
+        users.setId(id);
+        userService.save(users);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
@@ -37,9 +63,7 @@ public class UserController {
         userService.deleteById(users.get().getId());
         return new ResponseEntity<>(new ResponseMessage("Delete Success!"), HttpStatus.OK);
     }
-
-
-    //    coach
+    //    coach- class
     @GetMapping("/classes/show")
     public ResponseEntity<List<Classes>> showAll() {
         return new ResponseEntity<>(classesService.findAll(), HttpStatus.OK);
@@ -55,6 +79,7 @@ public class UserController {
         return classesService.findAllByName(name);
     }
 
+    //    coach- student
     @GetMapping("/coach/students/{id}")
     public List<User> findAllStudentByCoach(@PathVariable Long id) {
         return userService.findAllStudentByCoach(id);
@@ -81,5 +106,9 @@ public class UserController {
         return tuitionService.getTuitionHistory(id);
     }
 
+    @GetMapping("/student/mark/{id}")
+    public List<Mark> getStudentMark(@PathVariable Long id){
+        return markService.getStudentMark(id);
+    }
 
 }
